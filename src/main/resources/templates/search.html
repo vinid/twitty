@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en" style="background: url(http://404template.mekshq.com/images/bg1.png">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport"    content="width=device-width, initial-scale=1.0" />
+	<meta name="description" content="" />
+	<title>Twitter Friends</title>
+
+	<!-- Bootstrap itself -->
+	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+	<!-- Custom styles -->
+	<link rel="stylesheet" href="css/magister.css" />
+
+	<!-- Fonts -->
+	<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+	<link href="http://fonts.googleapis.com/css?family=Wire+One" rel="stylesheet" type="text/css" />
+	
+	<style>
+		.row {
+			padding-top: 3px;
+			padding-bottom: 3px;
+		}
+	</style>
+</head>
+
+<!-- use "theme-invert" class on bright backgrounds, also try "text-shadows" class -->
+<body class="theme-invert">
+
+		<div class="container">
+	
+			<div class="row">
+				<div class="col-md-12" align="center">
+					<!-- Site Title, your name, HELLO msg, etc. -->
+					<h1 class="title">Twitter friends</h1>
+					<h2 class="subtitle">Find information about users</h2>
+				</div>
+			</div>
+			<div class="row">
+				<form action="#" th:action="@{/search}" th:object="${search}" method="post">
+					<div class="col-md-6">
+		                	<div class="form-group">
+		                		<div class="row">
+			                		<div class="col-md-3">
+			                        	<label>Interest: </label>
+			                        </div>
+			                        <div class="col-md-7"> 
+			                        	<input type="text" class="form-control" name="myquery" th:field="*{interest}"
+			                        	placeholder="Enter the interest (also hashtag!)"/>
+			                        </div>
+									<div class="col-md-2">
+										  <input type="checkbox" th:field="*{interestDic}" />
+										  <label> AND </label>
+			                        </div>
+			                    </div>
+			                    <hr/>
+			                    <div class="row">
+			                		<div class="col-md-3">
+			                        	<label>Age: </label>
+			                        </div>
+			                        <div class="col-md-7"> 
+			                        	<input type="text" class="form-control" name="myquery" th:field="*{age}"
+			                        	placeholder="Enter the age" value=""/>
+			                        </div>
+			                        <div class="col-md-2">
+										  <input type="checkbox" th:field="*{ageDic}" />
+										  <label> AND </label>
+			                        </div>
+			                    </div>
+			                    <hr/>
+			                    <div class="row">
+			                		<div class="col-md-3">
+		                        		<label>Gender: </label>
+			                        </div>
+			                        <div class="col-md-7"> 
+			                        	<select th:field="*{gender}">
+			                        		<option value="select the gender"> Select the gender </option>
+											<option value="female"> Female </option>
+											<option value="male"> Male </option> 
+										</select>
+			                        </div>
+			                        <div class="col-md-2">
+										  <input type="checkbox" th:field="*{genderDic}" />
+										  <label> AND </label>
+			                        </div>
+			                    </div>
+			                    <hr/>			                    
+			                    <div class="row">
+			                		<div class="col-md-3">
+							   			<label>Address to search: </label>
+			                        </div>
+			                        <div class="col-md-7"> 
+		                        		<input id="rawAddress" class="form-control tip" type="text" 
+		                        		placeholder="Enter the address or move the marker" 
+		                        		title="Enter the address or move the marker" value=""/>
+			                        </div>
+			                        <div class="col-md-2">
+										  <input type="checkbox" th:field="*{geoDic}" />
+										  <label> AND </label>
+			                        </div>
+			                    </div>
+			                    <div class="row">
+			                		<div class="col-md-3">
+		                        		<label>Radius: </label>
+			                        </div>
+			                        <div class="col-md-7"> 
+		                        		<input type="text" class="form-control" name="myquery" th:field="*{radius}"
+		                        		placeholder="Enter the distance radius (in meters)" />
+			                        </div>
+			                    </div>
+			                    <hr/>
+			                    <div class="row">
+			                		<div class="col-md-3">
+		                        		<label>Number: </label>
+			                        </div>
+			                        <div class="col-md-7"> 
+		                        		<input type="text" class="form-control" name="myquery" th:field="*{number}"
+		                        		placeholder="Set number of max results (0 or empty = all)" />
+			                        </div>
+			                    </div>
+		                    </div>					    
+					</div> <!-- /col -->
+					<div class="col-md-6">
+				       	<div class="row">
+	                		<div class="col-md-3">
+              					<label>Address found: </label>
+	                        </div>
+	                        <div class="col-md-9"> 
+                        		<input id="addressClean" class="form-control tip" type="text" 
+				       			title="Enter the address or move the marker" value="" readonly="readonly" />
+	                        </div>
+	                    </div>
+	                    <div class="row">
+	                		<div class="col-md-3">
+                        		<label>City: </label>
+	                        </div>
+	                        <div class="col-md-9"> 
+                        		 <input id="city" class="form-control tip" type="text" value="" readonly="readonly" />
+	                        </div>
+	                    </div>
+                        <div class="row">
+	                		<div class="col-md-3">
+                        		<label>Country: </label>
+	                        </div>
+	                        <div class="col-md-9"> 
+                        		 <input id="country" class="form-control tip" type="text" value="" readonly="readonly" />
+	                        </div>
+	                    </div>
+				       	<div class="row">
+	                		<div class="col-md-3">
+              					<label>Latitude: </label>
+	                        </div>
+	                        <div class="col-md-9"> 
+                        		<input type="text" id="latitude" class="form-control" name="myquery" th:field="*{latitude}" readonly="readonly" />
+	                        </div>
+	                    </div>
+	                    <div class="row">
+	                		<div class="col-md-3">
+                        		<label>Longitude: </label>
+	                        </div>
+	                        <div class="col-md-9"> 
+                        		<input type="text" id="longitude" class="form-control" name="myquery" th:field="*{longitude}" readonly="readonly" />
+	                        </div>
+	                    </div>
+				       <hr/>
+					   <div id="map-canvas" style="height:287px"></div>
+					</div> <!-- second /col -->
+					
+					<div align="center">
+						<input type="checkbox" th:field="*{boost}" />
+						<label> Check if you want to boost user with more followers! </label>
+					</div>
+					
+					<div class="row" align="center">
+		            	<button type="submit" class="btn btn-default">Submit</button> <button type="reset" class="btn btn-default">Reset</button>
+					</div>
+					
+				</form>
+			</div> <!-- /row -->
+		</div> <!-- container -->
+
+	<!-- Load js libs only when the page is loaded. -->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+	<script src="js/modernizr.custom.72241.js"></script>
+	
+	<!-- Custom template scripts -->
+	
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+	
+	    <script type="text/javascript">
+	      // vars
+	      var iconMarker = 'img/social-balloon-twitter-icon.png';
+	      var mapCenter = new google.maps.LatLng(42.9508683, 12.701474899999994);
+	
+	      // fields
+	      var rawAddressField = $('#rawAddress');
+	      var nameField = $('#name');
+	      var latField = $('#latitude');
+	      var lngField = $('#longitude');
+	      var addressField = $('#addressClean');
+	      var cityField = $('#city');
+	      var countryField = $('#country');
+	
+	      $(function () {
+	        initialize();
+	
+	            var center = map.getCenter();
+	            google.maps.event.trigger(map, "resize");
+	            map.setCenter(center);
+	
+	      });
+	
+	    </script>
+	<script type="text/javascript" src="js/map.js"></script>
+    
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Twitter Friends</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="css/profile.css" />
+    <!-- Bootstrap itself -->
+	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+	<!-- Fonts -->
+	<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+	<link href='http://fonts.googleapis.com/css?family=Wire+One' rel='stylesheet' type='text/css' />
+</head>
+<body>
+	<div class="col-md-6" th:each="user : ${u}">
+	    <div class="card hovercard">
+	        <div class="card-background">
+	            <img class="card-bkimg" alt="" th:src="${user.coverImageURL}" />
+	        </div>
+	        <div class="useravatar">
+	            <img alt="" th:src="${user.profileImageURL}" />
+	        </div>
+	        <div class="card-info">
+	        	<span class="card-title" th:text="${user.name} + ' @' + ${user.screenName}"></span>
+	        </div>
+	    </div>
+	    <div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
+	        <div class="btn-group" role="group">
+	            <button type="button" id="stars" class="btn btn-default">
+	            	<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+	                <div class="hidden-xs" th:text="${user.numberOfTweets} + ' tweets'">Stars</div>
+	            </button>
+	        </div>
+	        <div class="btn-group" role="group">
+	            <button type="button" id="favorites" class="btn btn-default">
+	            	<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+	                <div class="hidden-xs" th:text="${user.follower} + ' follower'">Follower</div>
+	            </button>
+	        </div>
+	        <div class="btn-group" role="group">
+	            <a type="button" id="following" class="btn btn-default" th:href="'https://twitter.com/' + ${user.screenName}">
+	            	<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+	                <div class="hidden-xs"> See on Twitter </div>
+	            </a>
+	        </div>
+	    </div>
+
+        <div class="well">
+		          <div th:each="frag : ${user.fragments}">
+			          	<span th:utext="${frag}"> </span>
+	      </div>
+    	</div>
+    
+    </div>  
+    <script type="text/javascript" src="js/profile.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+</body>
+</html>
